@@ -41,6 +41,7 @@ dev = [
     "pytest-randomly",
     "flake8",
     "mypy",
+    "types-docutils",
 ]
 
 [tool.taskipy.tasks]
@@ -55,3 +56,6 @@ format_isort = "isort --profile black -l 79 src tests setup.py"
 check = "task check_flake8 && task check_mypy"
 check_flake8 = "flake8 src tests"
 check_mypy = "mypy src tests"
+
+[tool.mypy]
+exclude = ['/conf\.py$']
