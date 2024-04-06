@@ -190,3 +190,45 @@ class TestNotionBuilder:
             },
         ]
         assert actual == expected
+
+    def test_list_items(
+        self, make_app, sphinx_test_tempdir: Path, rootdir: Path
+    ) -> None:
+        case_name = "list-item"
+
+        srcdir = sphinx_test_tempdir / case_name
+        testroot_path = rootdir / f"test-{case_name}"
+        shutil.copytree(testroot_path, srcdir)
+
+        app = make_app("notion", srcdir=srcdir)
+        app.build()
+
+        actual = json.loads((app.outdir / "index.json").read_text())
+        expected = [
+            {
+                "object": "block",
+                "type": "bulleted_list_item",
+                "bulleted_list_item": {
+                    "rich_text": [
+                        {"type": "text", "text": {"content": "箇条書き"}}
+                    ]
+                },
+            },
+            {
+                "object": "block",
+                "type": "bulleted_list_item",
+                "bulleted_list_item": {
+                    "rich_text": [{"type": "text", "text": {"content": "を"}}]
+                },
+            },
+            {
+                "object": "block",
+                "type": "bulleted_list_item",
+                "bulleted_list_item": {
+                    "rich_text": [
+                        {"type": "text", "text": {"content": "サポート"}}
+                    ]
+                },
+            },
+        ]
+        assert actual == expected

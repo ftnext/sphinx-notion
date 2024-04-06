@@ -3,7 +3,14 @@ from __future__ import annotations
 import json
 from typing import Any
 
-from docutils.nodes import Element, Node, document, reference, strong
+from docutils.nodes import (
+    Element,
+    Node,
+    document,
+    list_item,
+    reference,
+    strong,
+)
 from sphinx.builders.text import TextBuilder
 from sphinx.writers.text import TextTranslator
 
@@ -66,6 +73,10 @@ class NotionTranslator(TextTranslator):
     def visit_paragraph(self, node: Element) -> None:
         super().visit_paragraph(node)
 
+        if isinstance(node.parent, list_item):
+            # Ignore list_item's paragraph (Cause duplication)
+            return
+
         texts = [self.convert_inline_elements(n) for n in node]
 
         self._json.append(
@@ -74,4 +85,23 @@ class NotionTranslator(TextTranslator):
                 "type": "paragraph",
                 "paragraph": {"rich_text": texts},
             }
+        )
+
+    def visit_bullet_list(self, node: Element) -> None:
+        super().visit_bullet_list(node)
+
+        self._json.extend(
+            {
+                "object": "block",
+                "type": "bulleted_list_item",
+                "bulleted_list_item": {
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {"content": list_item.astext()},
+                        }
+                    ]
+                },
+            }
+            for list_item in node
         )
