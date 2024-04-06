@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 from typing import Any
 
-from docutils.nodes import Element, Node, document, strong
+from docutils.nodes import Element, Node, document, reference, strong
 from sphinx.builders.text import TextBuilder
 from sphinx.writers.text import TextTranslator
 
@@ -48,6 +48,14 @@ class NotionTranslator(TextTranslator):
                 "type": "text",
                 "text": {"content": node.astext()},
                 "annotations": {"bold": True},
+            }
+        if isinstance(node, reference):
+            return {
+                "type": "text",
+                "text": {
+                    "content": node.attributes["name"],
+                    "link": node.attributes["refuri"],
+                },
             }
         # node is Text
         return {

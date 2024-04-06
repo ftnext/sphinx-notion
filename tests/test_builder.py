@@ -164,6 +164,29 @@ class TestNotionBuilder:
                         },
                     ]
                 },
-            }
+            },
+            {
+                "object": "block",
+                "type": "paragraph",
+                "paragraph": {
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {"content": "私の担当の"},
+                        },
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "エミリーちゃん",
+                                "link": "https://millionlive-theaterdays.idolmaster-official.jp/idol/emily/",  # NOQA: E501
+                            },
+                        },
+                        {
+                            "type": "text",
+                            "text": {"content": "はかわいい"},
+                        },
+                    ]
+                },
+            },
         ]
         assert actual == expected
