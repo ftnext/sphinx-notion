@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 from typing import Any
 
-from docutils.nodes import Element, document
+from docutils.nodes import Element, Node, document, strong
 from sphinx.builders.text import TextBuilder
 from sphinx.writers.text import TextTranslator
 
@@ -12,7 +12,6 @@ class NotionTranslator(TextTranslator):
     def __init__(self, document: document, builder: TextBuilder) -> None:
         super().__init__(document, builder)
         self._json: list[Any] = []
-        self._line: list[Any] = []
 
     def depart_document(self, node: Element) -> None:
         super().depart_document(node)
@@ -42,34 +41,29 @@ class NotionTranslator(TextTranslator):
             }
         )
 
+    @staticmethod
+    def convert_inline_elements(node: Node) -> dict[str, Any]:
+        if isinstance(node, strong):
+            return {
+                "type": "text",
+                "text": {"content": node.astext()},
+                "annotations": {"bold": True},
+            }
+        # node is Text
+        return {
+            "type": "text",
+            "text": {"content": node.astext().strip()},
+        }
+
     def visit_paragraph(self, node: Element) -> None:
         super().visit_paragraph(node)
 
-        text = node[0].astext() if len(node) >= 2 else node.astext()
-        self._line.append(
-            {
-                "type": "text",
-                "text": {"content": text.strip()},
-            }
-        )
-
-    def depart_paragraph(self, node: Element) -> None:
-        super().depart_paragraph(node)
+        texts = [self.convert_inline_elements(n) for n in node]
 
         self._json.append(
             {
                 "object": "block",
                 "type": "paragraph",
-                "paragraph": {"rich_text": self._line.copy()},
-            }
-        )
-        self._line = []
-
-    def visit_strong(self, node: Element) -> None:
-        self._line.append(
-            {
-                "type": "text",
-                "text": {"content": node.astext()},
-                "annotations": {"bold": True},
+                "paragraph": {"rich_text": texts},
             }
         )

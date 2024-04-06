@@ -149,6 +149,10 @@ class TestNotionBuilder:
                             "text": {"content": "強調"},
                             "annotations": {"bold": True},
                         },
+                        {
+                            "type": "text",
+                            "text": {"content": "します"},
+                        },
                     ]
                 },
             }
