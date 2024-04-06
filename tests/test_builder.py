@@ -41,6 +41,18 @@ class TestNotionBuilder:
                         }
                     ]
                 },
-            }
+            },
+            {
+                "object": "block",
+                "type": "paragraph",
+                "paragraph": {
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {"content": "2つ目の段落"},
+                        }
+                    ]
+                },
+            },
         ]
         assert actual == expected

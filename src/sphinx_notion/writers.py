@@ -14,9 +14,12 @@ class NotionTranslator(TextTranslator):
         self._json: list[Any] = []
 
     def depart_document(self, node: Element) -> None:
+        super().depart_document(node)
         self.body = json.dumps(self._json)
 
     def visit_paragraph(self, node: Element) -> None:
+        super().visit_paragraph(node)
+
         self._json.append(
             {
                 "object": "block",
