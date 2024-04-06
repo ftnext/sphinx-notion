@@ -188,6 +188,24 @@ class TestNotionBuilder:
                     ]
                 },
             },
+            {
+                "object": "block",
+                "type": "paragraph",
+                "paragraph": {
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "https://example.com/",
+                                "link": {
+                                    "type": "url",
+                                    "url": "https://example.com/",
+                                },
+                            },
+                        }
+                    ]
+                },
+            },
         ]
         assert actual == expected
 
