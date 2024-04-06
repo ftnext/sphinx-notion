@@ -108,8 +108,19 @@ class NotionTranslator(TextTranslator):
     def visit_literal_block(self, node: nodes.Element) -> None:
         super().visit_literal_block(node)
 
-        self._json.append(
-            {
+        if node.attributes["language"] == "default":
+            # default means "not specified"
+            code = {
+                "object": "block",
+                "type": "code",
+                "code": {
+                    "rich_text": [
+                        {"type": "text", "text": {"content": node.astext()}}
+                    ]
+                },
+            }
+        else:
+            code = {
                 "object": "block",
                 "type": "code",
                 "code": {
@@ -119,4 +130,5 @@ class NotionTranslator(TextTranslator):
                     "language": node.attributes["language"],
                 },
             }
-        )
+
+        self._json.append(code)

@@ -286,6 +286,18 @@ class TestNotionBuilder:
                     ],
                     "language": "python",
                 },
-            }
+            },
+            {
+                "object": "block",
+                "type": "code",
+                "code": {
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {"content": "print(3 * 4)"},
+                        }
+                    ],
+                },
+            },
         ]
         assert actual == expected
