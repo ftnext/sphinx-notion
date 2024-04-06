@@ -1,0 +1,33 @@
+from __future__ import annotations
+
+import json
+from typing import Any
+
+from docutils.nodes import Element, document
+from sphinx.builders.text import TextBuilder
+from sphinx.writers.text import TextTranslator
+
+
+class NotionTranslator(TextTranslator):
+    def __init__(self, document: document, builder: TextBuilder) -> None:
+        super().__init__(document, builder)
+        self._json: list[Any] = []
+
+    def depart_document(self, node: Element) -> None:
+        self.body = json.dumps(self._json)
+
+    def visit_paragraph(self, node: Element) -> None:
+        self._json.append(
+            {
+                "object": "block",
+                "type": "paragraph",
+                "paragraph": {
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {"content": node.astext()},
+                        }
+                    ]
+                },
+            }
+        )
