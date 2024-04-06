@@ -151,7 +151,16 @@ class TestNotionBuilder:
                         },
                         {
                             "type": "text",
-                            "text": {"content": "します"},
+                            "text": {"content": "します\n"},
+                        },
+                        {
+                            "type": "text",
+                            "text": {"content": "行頭のマークアップ"},
+                            "annotations": {"bold": True},
+                        },
+                        {
+                            "type": "text",
+                            "text": {"content": "の前の改行は保持する"},
                         },
                     ]
                 },
