@@ -104,3 +104,19 @@ class NotionTranslator(TextTranslator):
             }
             for list_item in node
         )
+
+    def visit_literal_block(self, node: nodes.Element) -> None:
+        super().visit_literal_block(node)
+
+        self._json.append(
+            {
+                "object": "block",
+                "type": "code",
+                "code": {
+                    "rich_text": [
+                        {"type": "text", "text": {"content": node.astext()}}
+                    ],
+                    "language": node.attributes["language"],
+                },
+            }
+        )
