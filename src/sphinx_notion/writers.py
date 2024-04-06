@@ -15,7 +15,7 @@ class NotionTranslator(TextTranslator):
 
     def depart_document(self, node: Element) -> None:
         super().depart_document(node)
-        self.body = json.dumps(self._json)
+        self.body = json.dumps(self._json, ensure_ascii=False, indent=4)
 
     def visit_paragraph(self, node: Element) -> None:
         super().visit_paragraph(node)
