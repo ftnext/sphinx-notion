@@ -94,5 +94,29 @@ class TestNotionBuilder:
                     ]
                 },
             },
+            {
+                "object": "block",
+                "type": "heading_3",
+                "heading_3": {
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {"content": "Level 3 Heading"},
+                        }
+                    ]
+                },
+            },
+            {
+                "object": "block",
+                "type": "paragraph",
+                "paragraph": {
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {"content": "レベル 4 見出し"},
+                        }
+                    ]
+                },
+            },
         ]
         assert actual == expected

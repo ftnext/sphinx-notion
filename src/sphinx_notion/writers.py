@@ -20,7 +20,11 @@ class NotionTranslator(TextTranslator):
     def visit_section(self, node: Element) -> None:
         super().visit_section(node)
 
-        heading_type = f"heading_{self.sectionlevel}"
+        heading_type = (
+            f"heading_{self.sectionlevel}"
+            if self.sectionlevel <= 3
+            else "paragraph"
+        )
         heading_text = node[0].astext() if len(node) >= 2 else node.astext()
         self._json.append(
             {
