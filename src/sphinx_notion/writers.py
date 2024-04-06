@@ -20,7 +20,8 @@ class NotionTranslator(TextTranslator):
     def visit_section(self, node: Element) -> None:
         super().visit_section(node)
 
-        heading_type = "heading_1"
+        heading_type = f"heading_{self.sectionlevel}"
+        heading_text = node[0].astext() if len(node) >= 2 else node.astext()
         self._json.append(
             {
                 "object": "block",
@@ -29,7 +30,7 @@ class NotionTranslator(TextTranslator):
                     "rich_text": [
                         {
                             "type": "text",
-                            "text": {"content": node.astext()},
+                            "text": {"content": heading_text},
                         }
                     ]
                 },
