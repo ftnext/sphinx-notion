@@ -210,15 +210,8 @@ class TestNotionBuilder:
                 "type": "bulleted_list_item",
                 "bulleted_list_item": {
                     "rich_text": [
-                        {"type": "text", "text": {"content": "箇条書き"}}
+                        {"type": "text", "text": {"content": "箇条書きを"}}
                     ]
-                },
-            },
-            {
-                "object": "block",
-                "type": "bulleted_list_item",
-                "bulleted_list_item": {
-                    "rich_text": [{"type": "text", "text": {"content": "を"}}]
                 },
             },
             {
@@ -227,6 +220,38 @@ class TestNotionBuilder:
                 "bulleted_list_item": {
                     "rich_text": [
                         {"type": "text", "text": {"content": "サポート"}}
+                    ]
+                },
+            },
+            {
+                "object": "block",
+                "type": "bulleted_list_item",
+                "bulleted_list_item": {
+                    "rich_text": [
+                        {"type": "text", "text": {"content": "マーク"}},
+                        {
+                            "type": "text",
+                            "text": {"content": "アップ"},
+                            "annotations": {"bold": True},
+                        },
+                        {"type": "text", "text": {"content": "に対応"}},
+                    ]
+                },
+            },
+            {
+                "object": "block",
+                "type": "bulleted_list_item",
+                "bulleted_list_item": {
+                    "rich_text": [
+                        {"type": "text", "text": {"content": "また"}},
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "リンク",
+                                "link": "http://example.com/",
+                            },
+                        },
+                        {"type": "text", "text": {"content": "にも対応"}},
                     ]
                 },
             },
