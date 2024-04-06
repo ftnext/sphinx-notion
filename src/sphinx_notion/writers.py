@@ -12,6 +12,7 @@ class NotionTranslator(TextTranslator):
     def __init__(self, document: document, builder: TextBuilder) -> None:
         super().__init__(document, builder)
         self._json: list[Any] = []
+        self._line: list[Any] = []
 
     def depart_document(self, node: Element) -> None:
         super().depart_document(node)
@@ -44,17 +45,22 @@ class NotionTranslator(TextTranslator):
     def visit_paragraph(self, node: Element) -> None:
         super().visit_paragraph(node)
 
+        text = node[0].astext() if len(node) >= 2 else node.astext()
+        self._line.append(
+            {
+                "type": "text",
+                "text": {"content": text.strip()},
+            }
+        )
+
+    def depart_paragraph(self, node: Element) -> None:
+        super().depart_paragraph(node)
+
         self._json.append(
             {
                 "object": "block",
                 "type": "paragraph",
-                "paragraph": {
-                    "rich_text": [
-                        {
-                            "type": "text",
-                            "text": {"content": node.astext()},
-                        }
-                    ]
-                },
+                "paragraph": {"rich_text": self._line.copy()},
             }
         )
+        self._line = []
