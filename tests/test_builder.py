@@ -120,3 +120,37 @@ class TestNotionBuilder:
             },
         ]
         assert actual == expected
+
+    def test_inline(
+        self, make_app, sphinx_test_tempdir: Path, rootdir: Path
+    ) -> None:
+        case_name = "inline"
+
+        srcdir = sphinx_test_tempdir / case_name
+        testroot_path = rootdir / f"test-{case_name}"
+        shutil.copytree(testroot_path, srcdir)
+
+        app = make_app("notion", srcdir=srcdir)
+        app.build()
+
+        actual = json.loads((app.outdir / "index.json").read_text())
+        expected = [
+            {
+                "object": "block",
+                "type": "paragraph",
+                "paragraph": {
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {"content": "大事なところを"},
+                        },
+                        {
+                            "type": "text",
+                            "text": {"content": "強調"},
+                            "annotations": {"bold": True},
+                        },
+                    ]
+                },
+            }
+        ]
+        assert actual == expected

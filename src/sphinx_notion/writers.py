@@ -64,3 +64,12 @@ class NotionTranslator(TextTranslator):
             }
         )
         self._line = []
+
+    def visit_strong(self, node: Element) -> None:
+        self._line.append(
+            {
+                "type": "text",
+                "text": {"content": node.astext()},
+                "annotations": {"bold": True},
+            }
+        )
