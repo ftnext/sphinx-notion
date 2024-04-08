@@ -17,44 +17,21 @@ class TestNotionBuilder:
 
         assert (app.outdir / "index.json").exists()
 
-    def test_paragraph(
+    def test_convert(
         self, make_app, sphinx_test_tempdir: Path, rootdir: Path
     ) -> None:
         case_name = "paragraph"
         srcdir = sphinx_test_tempdir / case_name
-        testroot_path = rootdir / f"test-{case_name}"
+        testroot_path = rootdir / f"test-{case_name}" / "source"
         shutil.copytree(testroot_path, srcdir)
 
         app = make_app("notion", srcdir=srcdir)
         app.build()
 
         actual = json.loads((app.outdir / "index.json").read_text())
-        expected = [
-            {
-                "object": "block",
-                "type": "paragraph",
-                "paragraph": {
-                    "rich_text": [
-                        {
-                            "type": "text",
-                            "text": {"content": "Hello World\nこんにちは"},
-                        }
-                    ]
-                },
-            },
-            {
-                "object": "block",
-                "type": "paragraph",
-                "paragraph": {
-                    "rich_text": [
-                        {
-                            "type": "text",
-                            "text": {"content": "2つ目の段落"},
-                        }
-                    ]
-                },
-            },
-        ]
+        expected = json.loads(
+            (rootdir / f"test-{case_name}" / "expected.json").read_text()
+        )
         assert actual == expected
 
     def test_heading(
