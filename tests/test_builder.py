@@ -20,7 +20,7 @@ class TestNotionBuilder:
         assert (app.outdir / "index.json").exists()
 
     @pytest.mark.parametrize(
-        "case_name", ["paragraph", "heading", "inline", "list-item"]
+        "case_name", ["paragraph", "heading", "inline", "list-item", "code"]
     )
     def test_convert(
         self,
@@ -40,48 +40,4 @@ class TestNotionBuilder:
         expected = json.loads(
             (rootdir / f"test-{case_name}" / "expected.json").read_text()
         )
-        assert actual == expected
-
-    def test_code_block(
-        self, make_app, sphinx_test_tempdir: Path, rootdir: Path
-    ) -> None:
-        case_name = "code"
-
-        srcdir = sphinx_test_tempdir / case_name
-        testroot_path = rootdir / f"test-{case_name}"
-        shutil.copytree(testroot_path, srcdir)
-
-        app = make_app("notion", srcdir=srcdir)
-        app.build()
-
-        actual = json.loads((app.outdir / "index.json").read_text())
-        expected = [
-            {
-                "object": "block",
-                "type": "code",
-                "code": {
-                    "rich_text": [
-                        {
-                            "type": "text",
-                            "text": {
-                                "content": 'print(1 + 2)\nprint("Hello")'
-                            },
-                        }
-                    ],
-                    "language": "python",
-                },
-            },
-            {
-                "object": "block",
-                "type": "code",
-                "code": {
-                    "rich_text": [
-                        {
-                            "type": "text",
-                            "text": {"content": "print(3 * 4)"},
-                        }
-                    ],
-                },
-            },
-        ]
         assert actual == expected
