@@ -1,0 +1,86 @@
+[
+    {
+        "object": "block",
+        "type": "bulleted_list_item",
+        "bulleted_list_item": {
+            "rich_text": [
+                {
+                    "type": "text",
+                    "text": {
+                        "content": "箇条書きを"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "object": "block",
+        "type": "bulleted_list_item",
+        "bulleted_list_item": {
+            "rich_text": [
+                {
+                    "type": "text",
+                    "text": {
+                        "content": "サポート"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "object": "block",
+        "type": "bulleted_list_item",
+        "bulleted_list_item": {
+            "rich_text": [
+                {
+                    "type": "text",
+                    "text": {
+                        "content": "マーク"
+                    }
+                },
+                {
+                    "type": "text",
+                    "text": {
+                        "content": "アップ"
+                    },
+                    "annotations": {
+                        "bold": true
+                    }
+                },
+                {
+                    "type": "text",
+                    "text": {
+                        "content": "に対応"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "object": "block",
+        "type": "bulleted_list_item",
+        "bulleted_list_item": {
+            "rich_text": [
+                {
+                    "type": "text",
+                    "text": {
+                        "content": "また"
+                    }
+                },
+                {
+                    "type": "text",
+                    "text": {
+                        "content": "リンク",
+                        "link": "http://example.com/"
+                    }
+                },
+                {
+                    "type": "text",
+                    "text": {
+                        "content": "にも対応"
+                    }
+                }
+            ]
+        }
+    }
+]

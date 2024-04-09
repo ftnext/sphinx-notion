@@ -19,7 +19,9 @@ class TestNotionBuilder:
 
         assert (app.outdir / "index.json").exists()
 
-    @pytest.mark.parametrize("case_name", ["paragraph", "heading", "inline"])
+    @pytest.mark.parametrize(
+        "case_name", ["paragraph", "heading", "inline", "list-item"]
+    )
     def test_convert(
         self,
         make_app,
@@ -38,73 +40,6 @@ class TestNotionBuilder:
         expected = json.loads(
             (rootdir / f"test-{case_name}" / "expected.json").read_text()
         )
-        assert actual == expected
-
-    def test_list_items(
-        self, make_app, sphinx_test_tempdir: Path, rootdir: Path
-    ) -> None:
-        case_name = "list-item"
-
-        srcdir = sphinx_test_tempdir / case_name
-        testroot_path = rootdir / f"test-{case_name}"
-        shutil.copytree(testroot_path, srcdir)
-
-        app = make_app("notion", srcdir=srcdir)
-        app.build()
-
-        actual = json.loads((app.outdir / "index.json").read_text())
-        expected = [
-            {
-                "object": "block",
-                "type": "bulleted_list_item",
-                "bulleted_list_item": {
-                    "rich_text": [
-                        {"type": "text", "text": {"content": "箇条書きを"}}
-                    ]
-                },
-            },
-            {
-                "object": "block",
-                "type": "bulleted_list_item",
-                "bulleted_list_item": {
-                    "rich_text": [
-                        {"type": "text", "text": {"content": "サポート"}}
-                    ]
-                },
-            },
-            {
-                "object": "block",
-                "type": "bulleted_list_item",
-                "bulleted_list_item": {
-                    "rich_text": [
-                        {"type": "text", "text": {"content": "マーク"}},
-                        {
-                            "type": "text",
-                            "text": {"content": "アップ"},
-                            "annotations": {"bold": True},
-                        },
-                        {"type": "text", "text": {"content": "に対応"}},
-                    ]
-                },
-            },
-            {
-                "object": "block",
-                "type": "bulleted_list_item",
-                "bulleted_list_item": {
-                    "rich_text": [
-                        {"type": "text", "text": {"content": "また"}},
-                        {
-                            "type": "text",
-                            "text": {
-                                "content": "リンク",
-                                "link": "http://example.com/",
-                            },
-                        },
-                        {"type": "text", "text": {"content": "にも対応"}},
-                    ]
-                },
-            },
-        ]
         assert actual == expected
 
     def test_code_block(
