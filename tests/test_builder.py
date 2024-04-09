@@ -19,7 +19,7 @@ class TestNotionBuilder:
 
         assert (app.outdir / "index.json").exists()
 
-    @pytest.mark.parametrize("case_name", ["paragraph", "heading"])
+    @pytest.mark.parametrize("case_name", ["paragraph", "heading", "inline"])
     def test_convert(
         self,
         make_app,
@@ -38,94 +38,6 @@ class TestNotionBuilder:
         expected = json.loads(
             (rootdir / f"test-{case_name}" / "expected.json").read_text()
         )
-        assert actual == expected
-
-    def test_inline(
-        self, make_app, sphinx_test_tempdir: Path, rootdir: Path
-    ) -> None:
-        case_name = "inline"
-
-        srcdir = sphinx_test_tempdir / case_name
-        testroot_path = rootdir / f"test-{case_name}"
-        shutil.copytree(testroot_path, srcdir)
-
-        app = make_app("notion", srcdir=srcdir)
-        app.build()
-
-        actual = json.loads((app.outdir / "index.json").read_text())
-        expected = [
-            {
-                "object": "block",
-                "type": "paragraph",
-                "paragraph": {
-                    "rich_text": [
-                        {
-                            "type": "text",
-                            "text": {"content": "大事なところを"},
-                        },
-                        {
-                            "type": "text",
-                            "text": {"content": "強調"},
-                            "annotations": {"bold": True},
-                        },
-                        {
-                            "type": "text",
-                            "text": {"content": "します\n"},
-                        },
-                        {
-                            "type": "text",
-                            "text": {"content": "行頭のマークアップ"},
-                            "annotations": {"bold": True},
-                        },
-                        {
-                            "type": "text",
-                            "text": {"content": "の前の改行は保持する"},
-                        },
-                    ]
-                },
-            },
-            {
-                "object": "block",
-                "type": "paragraph",
-                "paragraph": {
-                    "rich_text": [
-                        {
-                            "type": "text",
-                            "text": {"content": "私の担当の"},
-                        },
-                        {
-                            "type": "text",
-                            "text": {
-                                "content": "エミリーちゃん",
-                                "link": "https://millionlive-theaterdays.idolmaster-official.jp/idol/emily/",  # NOQA: E501
-                            },
-                        },
-                        {
-                            "type": "text",
-                            "text": {"content": "はかわいい"},
-                        },
-                    ]
-                },
-            },
-            {
-                "object": "block",
-                "type": "paragraph",
-                "paragraph": {
-                    "rich_text": [
-                        {
-                            "type": "text",
-                            "text": {
-                                "content": "https://example.com/",
-                                "link": {
-                                    "type": "url",
-                                    "url": "https://example.com/",
-                                },
-                            },
-                        }
-                    ]
-                },
-            },
-        ]
         assert actual == expected
 
     def test_list_items(
