@@ -4,22 +4,29 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "sphinx-notion"
-description = "TODO write description or delete"
+description = "Sphinx extension to generate JSON for Notion API from Sphinx documentation"
 readme = "README.md"
-requires-python = ">=3.8"
+requires-python = ">=3.9"
 license = { text = "MIT License" }
 authors = [{ name = "nikkie", email = "takuyafjp+develop@gmail.com" }]
-keywords = ["TODO", "write", "keywords"]
+keywords = ["Sphinx", "Notion"]
 classifiers = [
+    "Development Status :: 1 - Planning",
     "License :: OSI Approved :: MIT License",
+    "Intended Audience :: Developers",
+    "Framework :: Sphinx",
+    "Framework :: Sphinx :: Extension",
+    "Topic :: Documentation",
+    "Topic :: Documentation :: Sphinx",
+    "Topic :: Software Development :: Documentation",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3 :: Only",
-    "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
 ]
 dependencies = ["Sphinx"]
 dynamic = ["version"]
