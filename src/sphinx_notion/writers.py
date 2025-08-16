@@ -8,6 +8,12 @@ from sphinx.builders.text import TextBuilder
 from sphinx.writers.text import TextTranslator
 
 
+def to_notion_language(pygments_language: str) -> str:
+    if pygments_language == "text":
+        return "plain text"
+    return pygments_language
+
+
 class NotionTranslator(TextTranslator):
     def __init__(self, document: nodes.document, builder: TextBuilder) -> None:
         super().__init__(document, builder)
@@ -135,7 +141,9 @@ class NotionTranslator(TextTranslator):
                     "rich_text": [
                         {"type": "text", "text": {"content": node.astext()}}
                     ],
-                    "language": node.attributes["language"],
+                    "language": to_notion_language(
+                        node.attributes["language"]
+                    ),
                 },
             }
 
