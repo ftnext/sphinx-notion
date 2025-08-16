@@ -25,7 +25,8 @@
                         "content": "print(3 * 4)"
                     }
                 }
-            ]
+            ],
+            "language": "plain text"
         }
     },
     {

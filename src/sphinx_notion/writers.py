@@ -9,6 +9,9 @@ from sphinx.writers.text import TextTranslator
 
 
 def to_notion_language(pygments_language: str) -> str:
+    if pygments_language == "default":
+        # default means "not specified"
+        return "plain text"
     if pygments_language == "text":
         return "plain text"
     return pygments_language
@@ -122,19 +125,8 @@ class NotionTranslator(TextTranslator):
     def visit_literal_block(self, node: nodes.Element) -> None:
         super().visit_literal_block(node)
 
-        if node.attributes["language"] == "default":
-            # default means "not specified"
-            code = {
-                "object": "block",
-                "type": "code",
-                "code": {
-                    "rich_text": [
-                        {"type": "text", "text": {"content": node.astext()}}
-                    ]
-                },
-            }
-        else:
-            code = {
+        self._json.append(
+            {
                 "object": "block",
                 "type": "code",
                 "code": {
@@ -146,5 +138,4 @@ class NotionTranslator(TextTranslator):
                     ),
                 },
             }
-
-        self._json.append(code)
+        )
