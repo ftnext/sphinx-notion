@@ -140,5 +140,13 @@ class NotionTranslator(TextTranslator):
             }
         )
 
-    def visit_collapse_node(self, node: nodes.Node) -> None:
-        pass
+    # Handle sphinx-toolbox's CollapseNode by simply traversing its children.
+    # The expected behavior (per tests) is to ignore the collapse wrapper and
+    # render only its inner content.
+    def visit_CollapseNode(self, _: nodes.Node) -> None:
+        # No-op: allow traversal into children
+        return
+
+    def depart_CollapseNode(self, _: nodes.Node) -> None:
+        # No-op on departure
+        return
