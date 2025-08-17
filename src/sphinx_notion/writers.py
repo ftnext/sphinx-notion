@@ -139,3 +139,6 @@ class NotionTranslator(TextTranslator):
                 },
             }
         )
+
+    def visit_collapse_node(self, node: nodes.Node) -> None:
+        pass
