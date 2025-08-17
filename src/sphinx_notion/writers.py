@@ -139,3 +139,43 @@ class NotionTranslator(TextTranslator):
                 },
             }
         )
+
+    def visit_note(self, node: nodes.Element) -> None:
+        super().visit_note(node)
+        self._json.append(
+            {
+                "object": "block",
+                "type": "callout",
+                "callout": {
+                    "rich_text": [
+                        {"type": "text", "text": {"content": node.astext()}}
+                    ],
+                    "color": "blue_background",
+                    "icon": {
+                        "type": "emoji",
+                        "emoji": "🖊️",
+                    },
+                },
+            }
+        )
+        raise nodes.SkipNode
+
+    def visit_warning(self, node: nodes.Element) -> None:
+        super().visit_warning(node)
+        self._json.append(
+            {
+                "object": "block",
+                "type": "callout",
+                "callout": {
+                    "rich_text": [
+                        {"type": "text", "text": {"content": node.astext()}}
+                    ],
+                    "color": "orange_background",
+                    "icon": {
+                        "type": "emoji",
+                        "emoji": "⚠️",
+                    },
+                },
+            }
+        )
+        raise nodes.SkipNode

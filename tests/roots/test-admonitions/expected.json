@@ -1,0 +1,40 @@
+[
+  {
+    "object": "block",
+    "type": "callout",
+    "callout": {
+      "rich_text": [
+        {
+          "type": "text",
+          "text": {
+            "content": "This is a note admonition."
+          }
+        }
+      ],
+      "color": "blue_background",
+      "icon": {
+        "type": "emoji",
+        "emoji": "🖊️"
+      }
+    }
+  },
+  {
+    "object": "block",
+    "type": "callout",
+    "callout": {
+      "rich_text": [
+        {
+          "type": "text",
+          "text": {
+            "content": "Be careful!"
+          }
+        }
+      ],
+      "color": "orange_background",
+      "icon": {
+        "type": "emoji",
+        "emoji": "⚠️"
+      }
+    }
+  }
+]
