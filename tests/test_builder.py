@@ -20,7 +20,16 @@ class TestNotionBuilder:
         assert (app.outdir / "index.json").exists()
 
     @pytest.mark.parametrize(
-        "case_name", ["paragraph", "heading", "inline", "list-item", "code"]
+        "case_name",
+        [
+            "paragraph",
+            "heading",
+            "inline",
+            "list-item",
+            "code",
+            "collapse",
+            "admonitions",
+        ],
     )
     def test_convert(
         self,

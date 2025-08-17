@@ -48,6 +48,7 @@ dev = [
     "pytest-randomly",
     "flake8",
     "mypy",
+    "sphinx_toolbox",
     "types-docutils",
 ]
 
