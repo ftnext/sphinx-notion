@@ -28,6 +28,7 @@ class TestNotionBuilder:
             "list-item",
             "code",
             "collapse",
+            "admonitions",
         ],
     )
     def test_convert(

@@ -50,6 +50,90 @@ class NotionTranslator(TextTranslator):
             }
         )
 
+    def convert_block(self, node: nodes.Node) -> list[dict[str, Any]]:
+        if isinstance(node, nodes.bullet_list):
+            return [{
+                "object": "block",
+                "type": "bulleted_list_item",
+                "bulleted_list_item": {
+                    "rich_text": self.convert_paragraph(
+                        cast(
+                            nodes.paragraph,
+                            cast(nodes.list_item, list_item)[0],
+                        )
+                    )
+                },
+            }
+            for list_item in node
+            ]
+
+        if isinstance(node, nodes.paragraph):
+            return [{
+                "object": "block",
+                "type": "paragraph",
+                "paragraph": {
+                    "rich_text": self.convert_paragraph(node)
+                }
+            }]
+
+        if isinstance(node, nodes.literal_block):
+            return [{
+                "object": "block",
+                "type": "code",
+                "code": {
+                    "rich_text": [
+                        {"type": "text", "text": {"content": node.astext()}}
+                    ],
+                    "language": to_notion_language(
+                        node.attributes["language"]
+                    ),
+                },
+            }]
+        
+        if isinstance(node, nodes.note):
+            children: list[dict[str, Any]] = []
+            for child in node:
+                children.extend(self.convert_block(child))
+            return [
+                {
+                    "object": "block",
+                    "type": "callout",
+                    "callout": {
+                        "rich_text": [],
+                        "color": "blue_background",
+                        "icon": {
+                            "type": "emoji",
+                            "emoji": "🖊️",
+                        },
+                        "children": children,
+                    },
+                },
+            ]
+        if isinstance(node, nodes.warning):
+            children: list[dict[str, Any]] = []
+            for child in node:
+                children.extend(self.convert_block(child))
+            return [
+                {
+                    "object": "block",
+                    "type": "callout",
+                    "callout": {
+                        "rich_text": [],
+                        "color": "orange_background",
+                        "icon": {
+                            "type": "emoji",
+                            "emoji": "⚠️",
+                        },
+                        "children": children,
+                    },
+                },
+            ]
+
+        return [{
+            "type": "text",
+            "text": {"content": node.astext().strip(" ")},
+        }]
+
     @staticmethod
     def convert_inline_elements(node: nodes.Node) -> dict[str, Any]:
         if isinstance(node, nodes.strong):
@@ -91,54 +175,27 @@ class NotionTranslator(TextTranslator):
             # Ignore list_item's paragraph (Cause duplication)
             return
 
-        self._json.append(
-            {
-                "object": "block",
-                "type": "paragraph",
-                "paragraph": {
-                    "rich_text": self.convert_paragraph(
-                        cast(nodes.paragraph, node)
-                    )
-                },
-            }
-        )
-
+        self._json.extend(self.convert_block(node))
+            
     def visit_bullet_list(self, node: nodes.Element) -> None:
         super().visit_bullet_list(node)
 
-        self._json.extend(
-            {
-                "object": "block",
-                "type": "bulleted_list_item",
-                "bulleted_list_item": {
-                    "rich_text": self.convert_paragraph(
-                        cast(
-                            nodes.paragraph,
-                            cast(nodes.list_item, list_item)[0],
-                        )
-                    )
-                },
-            }
-            for list_item in node
-        )
+        self._json.extend(self.convert_block(node))
 
     def visit_literal_block(self, node: nodes.Element) -> None:
         super().visit_literal_block(node)
 
-        self._json.append(
-            {
-                "object": "block",
-                "type": "code",
-                "code": {
-                    "rich_text": [
-                        {"type": "text", "text": {"content": node.astext()}}
-                    ],
-                    "language": to_notion_language(
-                        node.attributes["language"]
-                    ),
-                },
-            }
-        )
+        self._json.extend(self.convert_block(node))
+
+    def visit_note(self, node: nodes.Element) -> None:
+        super().visit_note(node)
+        self._json.extend(self.convert_block(node))
+        raise nodes.SkipNode
+
+    def visit_warning(self, node: nodes.Element) -> None:
+        super().visit_warning(node)
+        self._json.extend(self.convert_block(node))
+        raise nodes.SkipNode
 
     # Handle sphinx-toolbox's CollapseNode by simply traversing its children.
     # The expected behavior (per tests) is to ignore the collapse wrapper and
