@@ -64,7 +64,7 @@ class NotionTranslator(TextTranslator):
                     "type": "text",
                     "text": {
                         "content": node.attributes["name"],
-                        "link": node.attributes["refuri"],
+                        "link": {"type": "url", "url": node.attributes["refuri"]},
                     },
                 }
             return {
