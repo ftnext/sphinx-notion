@@ -77,7 +77,7 @@ class NotionTranslator(TextTranslator):
         # node is Text
         return {
             "type": "text",
-            "text": {"content": node.astext().strip(" ")},
+            "text": {"content": node.astext()},
         }
 
     @staticmethod
