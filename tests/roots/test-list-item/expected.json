@@ -35,7 +35,7 @@
                 {
                     "type": "text",
                     "text": {
-                        "content": "マーク"
+                        "content": "マーク "
                     }
                 },
                 {
@@ -50,7 +50,7 @@
                 {
                     "type": "text",
                     "text": {
-                        "content": "に対応"
+                        "content": " に対応"
                     }
                 }
             ]
@@ -64,7 +64,7 @@
                 {
                     "type": "text",
                     "text": {
-                        "content": "また"
+                        "content": "また "
                     }
                 },
                 {
@@ -77,7 +77,7 @@
                 {
                     "type": "text",
                     "text": {
-                        "content": "にも対応"
+                        "content": " にも対応"
                     }
                 }
             ]

@@ -7,7 +7,7 @@
                 {
                     "type": "text",
                     "text": {
-                        "content": "大事なところを"
+                        "content": "大事なところを "
                     }
                 },
                 {
@@ -22,7 +22,7 @@
                 {
                     "type": "text",
                     "text": {
-                        "content": "します\n"
+                        "content": " します\n"
                     }
                 },
                 {
@@ -37,7 +37,7 @@
                 {
                     "type": "text",
                     "text": {
-                        "content": "の前の改行は保持する"
+                        "content": " の前の改行は保持する"
                     }
                 }
             ]
@@ -51,7 +51,7 @@
                 {
                     "type": "text",
                     "text": {
-                        "content": "私の担当の"
+                        "content": "私の担当の "
                     }
                 },
                 {
@@ -64,7 +64,7 @@
                 {
                     "type": "text",
                     "text": {
-                        "content": "はかわいい"
+                        "content": " はかわいい"
                     }
                 }
             ]
