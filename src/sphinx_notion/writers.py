@@ -6,6 +6,7 @@ from typing import Any, cast
 from docutils import nodes
 from sphinx.builders.text import TextBuilder
 from sphinx.writers.text import TextTranslator
+from sphinx_toolbox.collapse import CollapseNode
 
 
 def to_notion_language(pygments_language: str) -> str:
@@ -129,6 +130,23 @@ class NotionTranslator(TextTranslator):
                 },
             ]
 
+        if isinstance(node, CollapseNode):
+            label = node.attributes["label"]
+            children: list[dict[str, Any]] = []
+            for child in node:
+                children.extend(self.convert_block(child))
+            return [
+                {
+                    "object": "block",
+                    "type": "toggle",
+                    "toggle": {
+                        "rich_text": [
+                            {"type": "text", "text": {"content": label}}
+                        ],
+                        "children": children,
+                    },
+                },
+            ]
         return [{
             "type": "text",
             "text": {"content": node.astext().strip(" ")},
@@ -200,9 +218,10 @@ class NotionTranslator(TextTranslator):
     # Handle sphinx-toolbox's CollapseNode by simply traversing its children.
     # The expected behavior (per tests) is to ignore the collapse wrapper and
     # render only its inner content.
-    def visit_CollapseNode(self, _: nodes.Node) -> None:
+    def visit_CollapseNode(self, node: nodes.Node) -> None:
         # No-op: allow traversal into children
-        return
+        self._json.extend(self.convert_block(node))
+        raise nodes.SkipNode
 
     def depart_CollapseNode(self, _: nodes.Node) -> None:
         # No-op on departure
