@@ -87,10 +87,6 @@ class NotionTranslator(TextTranslator):
     def visit_paragraph(self, node: nodes.Element) -> None:
         super().visit_paragraph(node)
 
-        if isinstance(node.parent, nodes.list_item):
-            # Ignore list_item's paragraph (Cause duplication)
-            return
-
         self._json.append(
             {
                 "object": "block",
@@ -121,6 +117,9 @@ class NotionTranslator(TextTranslator):
             }
             for list_item in node
         )
+
+        # Do not re-render sub items.
+        raise nodes.SkipNode
 
     def visit_literal_block(self, node: nodes.Element) -> None:
         super().visit_literal_block(node)
