@@ -3,38 +3,56 @@
     "object": "block",
     "type": "callout",
     "callout": {
-      "rich_text": [
-        {
-          "type": "text",
-          "text": {
-            "content": "This is a note admonition."
-          }
-        }
-      ],
+      "rich_text": [],
       "color": "blue_background",
       "icon": {
         "type": "emoji",
         "emoji": "🖊️"
-      }
+      },
+      "children": [
+        {
+          "object": "block",
+          "type": "paragraph",
+          "paragraph": {
+            "rich_text": [
+              {
+                "type": "text",
+                "text": {
+                  "content": "This is a note admonition."
+                }
+              }
+            ]
+          }
+        }
+      ]
     }
   },
   {
     "object": "block",
     "type": "callout",
     "callout": {
-      "rich_text": [
-        {
-          "type": "text",
-          "text": {
-            "content": "Be careful!"
-          }
-        }
-      ],
+      "rich_text": [],
       "color": "orange_background",
       "icon": {
         "type": "emoji",
         "emoji": "⚠️"
-      }
+      },
+      "children": [
+        {
+          "object": "block",
+          "type": "paragraph",
+          "paragraph": {
+            "rich_text": [
+              {
+                "type": "text",
+                "text": {
+                  "content": "Be careful!"
+                }
+              }
+            ]
+          }
+        }
+      ]
     }
   }
 ]
