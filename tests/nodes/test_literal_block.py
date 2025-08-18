@@ -8,7 +8,10 @@ from sphinx_notion.nodes.literal_block import to_notion_language
     [
         ("python", "python"),
         ("default", "plain text"),
+        ("pycon", "python"),
+        ("pytb", "plain text"),
         ("text", "plain text"),
+        ("output", "plain text"),
     ],
 )
 def test_to_notion_language(pygments_language, expected):
