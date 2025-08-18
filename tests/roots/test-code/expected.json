@@ -22,21 +22,6 @@
                 {
                     "type": "text",
                     "text": {
-                        "content": "print(3 * 4)"
-                    }
-                }
-            ],
-            "language": "plain text"
-        }
-    },
-    {
-        "object": "block",
-        "type": "code",
-        "code": {
-            "rich_text": [
-                {
-                    "type": "text",
-                    "text": {
                         "content": "print(5 - 6)"
                     }
                 }
