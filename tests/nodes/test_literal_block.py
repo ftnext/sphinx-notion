@@ -15,6 +15,9 @@ from sphinx_notion.nodes.literal_block import (
         ("python-console", "pycon"),
         ("pytb", "pytb"),
         ("py3tb", "pytb"),
+        ("text", "text"),
+        ("output", "output"),
+        ("default", "default"),
     ],
 )
 def test_get_standard_pygments_language(language, expected):

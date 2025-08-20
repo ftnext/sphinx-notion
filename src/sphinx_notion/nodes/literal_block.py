@@ -4,6 +4,9 @@ PygmentsLanguage = str
 
 
 def get_standard_pygments_language(language: str) -> PygmentsLanguage:
+    # "default" language means "not specified"
+    if language == "default":
+        return "default"
     lexer = get_lexer_by_name(language)
     # Lexer has aliases but mypy raises this error:
     # >error: "Lexer" has no attribute "aliases"  [attr-defined]
