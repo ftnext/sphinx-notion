@@ -49,6 +49,7 @@ dev = [
     "flake8",
     "mypy",
     "types-docutils",
+    "types-Pygments",
 ]
 
 [tool.taskipy.tasks]

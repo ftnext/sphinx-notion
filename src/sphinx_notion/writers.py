@@ -7,14 +7,10 @@ from docutils import nodes
 from sphinx.builders.text import TextBuilder
 from sphinx.writers.text import TextTranslator
 
-
-def to_notion_language(pygments_language: str) -> str:
-    if pygments_language == "default":
-        # default means "not specified"
-        return "plain text"
-    if pygments_language == "text":
-        return "plain text"
-    return pygments_language
+from sphinx_notion.nodes.literal_block import (
+    get_standard_pygments_language,
+    to_notion_language,
+)
 
 
 class NotionTranslator(TextTranslator):
@@ -125,6 +121,9 @@ class NotionTranslator(TextTranslator):
     def visit_literal_block(self, node: nodes.Element) -> None:
         super().visit_literal_block(node)
 
+        pygments_language = get_standard_pygments_language(
+            node.attributes["language"]
+        )
         self._json.append(
             {
                 "object": "block",
@@ -133,9 +132,7 @@ class NotionTranslator(TextTranslator):
                     "rich_text": [
                         {"type": "text", "text": {"content": node.astext()}}
                     ],
-                    "language": to_notion_language(
-                        node.attributes["language"]
-                    ),
+                    "language": to_notion_language(pygments_language),
                 },
             }
         )

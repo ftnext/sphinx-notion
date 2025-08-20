@@ -3,10 +3,11 @@
     print(1 + 2)
     print("Hello")
 
-.. code-block::
-
-    print(3 * 4)
-
 .. code-block:: text
 
     print(5 - 6)
+
+.. code-block:: python-console
+
+    >>> print("Hello, World!")
+    Hello, World!
