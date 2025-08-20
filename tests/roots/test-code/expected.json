@@ -28,5 +28,20 @@
             ],
             "language": "plain text"
         }
+    },
+    {
+        "object": "block",
+        "type": "code",
+        "code": {
+            "rich_text": [
+                {
+                    "type": "text",
+                    "text": {
+                        "content": ">>> print(\"Hello, World!\")\nHello, World!"
+                    }
+                }
+            ],
+            "language": "python"
+        }
     }
 ]

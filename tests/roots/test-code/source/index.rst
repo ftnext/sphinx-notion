@@ -6,3 +6,8 @@
 .. code-block:: text
 
     print(5 - 6)
+
+.. code-block:: python-console
+
+    >>> print("Hello, World!")
+    Hello, World!
