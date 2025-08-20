@@ -1,6 +1,24 @@
 import pytest
 
-from sphinx_notion.nodes.literal_block import to_notion_language
+from sphinx_notion.nodes.literal_block import (
+    get_standard_pygments_language,
+    to_notion_language,
+)
+
+
+@pytest.mark.parametrize(
+    "language, expected",
+    [
+        ("python", "python"),
+        ("python3", "python"),
+        ("pycon", "pycon"),
+        ("python-console", "pycon"),
+        ("pytb", "pytb"),
+        ("py3tb", "pytb"),
+    ],
+)
+def test_get_standard_pygments_language(language, expected):
+    assert get_standard_pygments_language(language) == expected
 
 
 @pytest.mark.parametrize(
