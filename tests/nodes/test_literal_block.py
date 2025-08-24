@@ -40,13 +40,14 @@ def test_to_notion_language(pygments_language, expected):
     assert to_notion_language(pygments_language) == expected
 
 
-def test_chunk_code():
+@pytest.mark.parametrize("upper_limit", [6, 10])
+def test_chunk_code_single_line(upper_limit):
     code = """1 + 2
 3 - 4
 5 * 6
 7 / 8
 """
-    actual = chunk_code(code, 6)
+    actual = chunk_code(code, upper_limit)
     expected = [
         "1 + 2\n",
         "3 - 4\n",
@@ -56,13 +57,14 @@ def test_chunk_code():
     assert list(actual) == expected
 
 
-def test_chunk_code_multiple_lines():
+@pytest.mark.parametrize("upper_limit", [12, 17])
+def test_chunk_code_multiple_lines(upper_limit):
     code = """1 + 2
 3 - 4
 5 * 6
 7 / 8
 """
-    actual = chunk_code(code, 12)
+    actual = chunk_code(code, upper_limit)
     expected = [
         "1 + 2\n3 - 4\n",
         "5 * 6\n7 / 8\n",
