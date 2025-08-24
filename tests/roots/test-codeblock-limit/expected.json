@@ -1,0 +1,32 @@
+[
+    {
+        "object": "block",
+        "type": "code",
+        "code": {
+            "rich_text": [
+                {
+                    "type": "text",
+                    "text": {
+                        "content": "a = 1 + 2\nb = 3 - 4"
+                    }
+                }
+            ],
+            "language": "python"
+        }
+    },
+    {
+        "object": "block",
+        "type": "code",
+        "code": {
+            "rich_text": [
+                {
+                    "type": "text",
+                    "text": {
+                        "content": "c = 5 * 6\nd = 7 / 8"
+                    }
+                }
+            ],
+            "language": "python"
+        }
+    }
+]
