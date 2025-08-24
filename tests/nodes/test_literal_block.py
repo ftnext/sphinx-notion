@@ -1,6 +1,7 @@
 import pytest
 
 from sphinx_notion.nodes.literal_block import (
+    chunk_code,
     get_standard_pygments_language,
     to_notion_language,
 )
@@ -37,3 +38,19 @@ def test_get_standard_pygments_language(language, expected):
 )
 def test_to_notion_language(pygments_language, expected):
     assert to_notion_language(pygments_language) == expected
+
+
+def test_chunk_code():
+    code = """1 + 2
+3 - 4
+5 * 6
+7 / 8
+"""
+    actual = chunk_code(code, 6)
+    expected = [
+        "1 + 2\n",
+        "3 - 4\n",
+        "5 * 6\n",
+        "7 / 8\n",
+    ]
+    assert list(actual) == expected

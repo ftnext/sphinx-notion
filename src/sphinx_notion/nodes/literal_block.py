@@ -21,3 +21,7 @@ def to_notion_language(pygments_language: PygmentsLanguage) -> str:
         return "python"
     # TODO: Support for other languages
     return pygments_language
+
+
+def chunk_code(code: str, upper_limit: int):
+    yield from code.splitlines(keepends=True)
