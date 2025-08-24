@@ -24,4 +24,12 @@ def to_notion_language(pygments_language: PygmentsLanguage) -> str:
 
 
 def chunk_code(code: str, upper_limit: int):
-    yield from code.splitlines(keepends=True)
+    buffer = ""
+    for line in code.splitlines(keepends=True):
+        if len(buffer) + len(line) <= upper_limit:
+            buffer += line
+        else:
+            yield buffer
+            buffer = line
+    if buffer:
+        yield buffer

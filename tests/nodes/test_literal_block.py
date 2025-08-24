@@ -54,3 +54,17 @@ def test_chunk_code():
         "7 / 8\n",
     ]
     assert list(actual) == expected
+
+
+def test_chunk_code_multiple_lines():
+    code = """1 + 2
+3 - 4
+5 * 6
+7 / 8
+"""
+    actual = chunk_code(code, 12)
+    expected = [
+        "1 + 2\n3 - 4\n",
+        "5 * 6\n7 / 8\n",
+    ]
+    assert list(actual) == expected
