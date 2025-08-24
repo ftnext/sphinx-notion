@@ -8,6 +8,7 @@ from sphinx.builders.text import TextBuilder
 from sphinx.writers.text import TextTranslator
 
 from sphinx_notion.nodes.literal_block import (
+    chunk_code,
     get_standard_pygments_language,
     to_notion_language,
 )
@@ -124,15 +125,20 @@ class NotionTranslator(TextTranslator):
         pygments_language = get_standard_pygments_language(
             node.attributes["language"]
         )
-        self._json.append(
-            {
-                "object": "block",
-                "type": "code",
-                "code": {
-                    "rich_text": [
-                        {"type": "text", "text": {"content": node.astext()}}
-                    ],
-                    "language": to_notion_language(pygments_language),
-                },
-            }
-        )
+        notion_language = to_notion_language(pygments_language)
+        for chunk in chunk_code(
+            node.astext(),
+            self.builder.config.sphinx_notion_character_upper_limit,
+        ):
+            self._json.append(
+                {
+                    "object": "block",
+                    "type": "code",
+                    "code": {
+                        "rich_text": [
+                            {"type": "text", "text": {"content": chunk}}
+                        ],
+                        "language": notion_language,
+                    },
+                }
+            )

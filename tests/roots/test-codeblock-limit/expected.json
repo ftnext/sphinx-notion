@@ -7,7 +7,7 @@
                 {
                     "type": "text",
                     "text": {
-                        "content": "a = 1 + 2\nb = 3 - 4"
+                        "content": "a = 1 + 2\nb = 3 - 4\n"
                     }
                 }
             ],
