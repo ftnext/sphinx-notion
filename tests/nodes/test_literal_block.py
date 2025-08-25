@@ -58,7 +58,7 @@ def test_chunk_code_single_line(upper_limit):
 
 
 @pytest.mark.parametrize("upper_limit", [12, 17])
-def test_chunk_code_multiple_lines(upper_limit):
+def test_chunk_code_multiple_lines_2_2(upper_limit):
     code = """1 + 2
 3 - 4
 5 * 6
@@ -68,5 +68,19 @@ def test_chunk_code_multiple_lines(upper_limit):
     expected = [
         "1 + 2\n3 - 4\n",
         "5 * 6\n7 / 8\n",
+    ]
+    assert list(actual) == expected
+
+
+def test_chunk_code_multiple_lines_3_1():
+    code = """1 + 2
+3 - 4
+5 * 6
+7 / 8
+"""
+    actual = chunk_code(code, 18)
+    expected = [
+        "1 + 2\n3 - 4\n5 * 6\n",
+        "7 / 8\n",
     ]
     assert list(actual) == expected
