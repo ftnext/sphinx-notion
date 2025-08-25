@@ -11,6 +11,6 @@ def setup(app: Sphinx):
     app.add_config_value(
         "sphinx_notion_character_upper_limit",
         NOTION_API_CHARACTER_UPPER_LIMIT,
-        True,
+        "env",
     )
     app.add_builder(NotionBuilder)
