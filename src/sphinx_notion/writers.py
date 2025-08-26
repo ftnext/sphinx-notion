@@ -128,7 +128,7 @@ class NotionTranslator(TextTranslator):
         notion_language = to_notion_language(pygments_language)
         for chunk in chunk_code(
             node.astext(),
-            self.builder.config.sphinx_notion_character_upper_limit,
+            self.builder.config.sphinx_notion_code_block_character_limit,
         ):
             self._json.append(
                 {
