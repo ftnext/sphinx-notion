@@ -83,3 +83,11 @@ class TestChunkCode:
             "7 / 8\n",
         ]
         assert list(actual) == expected
+
+    def test_raise_error_when_exceeded(self):
+        code = """ab
+abcd
+abc
+"""
+        with pytest.raises(ValueError):
+            list(chunk_code(code, 4))

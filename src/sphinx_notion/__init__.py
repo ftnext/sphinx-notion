@@ -15,7 +15,7 @@ def setup(app: Sphinx):
         "env",
         description=(
             "Character limit for Sphinx code-blocks. "
-            "Exceeding 2000 is not recommended, "
+            "Cannot exceed 2000 characters, "
             "as it is the size limit of Notion's rich_text.content."
         ),
     )
