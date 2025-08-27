@@ -1,6 +1,7 @@
 import pytest
 
 from sphinx_notion.nodes.literal_block import (
+    chunk_code,
     get_standard_pygments_language,
     to_notion_language,
 )
@@ -37,3 +38,56 @@ def test_get_standard_pygments_language(language, expected):
 )
 def test_to_notion_language(pygments_language, expected):
     assert to_notion_language(pygments_language) == expected
+
+
+class TestChunkCode:
+    @pytest.mark.parametrize("upper_limit", [6, 10])
+    def test_chunk_code_single_line(self, upper_limit):
+        code = """1 + 2
+3 - 4
+5 * 6
+7 / 8
+"""
+        actual = chunk_code(code, upper_limit)
+        expected = [
+            "1 + 2\n",
+            "3 - 4\n",
+            "5 * 6\n",
+            "7 / 8\n",
+        ]
+        assert list(actual) == expected
+
+    @pytest.mark.parametrize("upper_limit", [12, 17])
+    def test_chunk_code_multiple_lines_2_2(self, upper_limit):
+        code = """1 + 2
+3 - 4
+5 * 6
+7 / 8
+"""
+        actual = chunk_code(code, upper_limit)
+        expected = [
+            "1 + 2\n3 - 4\n",
+            "5 * 6\n7 / 8\n",
+        ]
+        assert list(actual) == expected
+
+    def test_chunk_code_multiple_lines_3_1(self):
+        code = """1 + 2
+3 - 4
+5 * 6
+7 / 8
+"""
+        actual = chunk_code(code, 18)
+        expected = [
+            "1 + 2\n3 - 4\n5 * 6\n",
+            "7 / 8\n",
+        ]
+        assert list(actual) == expected
+
+    def test_raise_error_when_exceeded(self):
+        code = """ab
+abcd
+abc
+"""
+        with pytest.raises(ValueError):
+            list(chunk_code(code, 4))

@@ -21,3 +21,23 @@ def to_notion_language(pygments_language: PygmentsLanguage) -> str:
         return "python"
     # TODO: Support for other languages
     return pygments_language
+
+
+def chunk_code(code: str, upper_limit: int):
+    lines = code.splitlines(keepends=True)
+    max_line_length = max(len(line) for line in lines)
+    if max_line_length > upper_limit:
+        raise ValueError(
+            f"upper_limit (current {upper_limit}) needs to be greater "
+            f"than max_line_length ({max_line_length})"
+        )
+
+    buffer = ""
+    for line in lines:
+        if len(buffer) + len(line) <= upper_limit:
+            buffer += line
+        else:
+            yield buffer
+            buffer = line
+    if buffer:
+        yield buffer
