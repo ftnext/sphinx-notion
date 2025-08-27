@@ -5,6 +5,7 @@ from typing import Any, cast
 
 from docutils import nodes
 from sphinx.builders.text import TextBuilder
+from sphinx.util import logging
 from sphinx.writers.text import TextTranslator
 
 from sphinx_notion.nodes.literal_block import (
@@ -12,6 +13,8 @@ from sphinx_notion.nodes.literal_block import (
     get_standard_pygments_language,
     to_notion_language,
 )
+
+logger = logging.getLogger(__name__)
 
 
 class NotionTranslator(TextTranslator):
@@ -126,10 +129,19 @@ class NotionTranslator(TextTranslator):
             node.attributes["language"]
         )
         notion_language = to_notion_language(pygments_language)
-        for chunk in chunk_code(
-            node.astext(),
-            self.builder.config.sphinx_notion_code_block_character_limit,
-        ):
+
+        character_limit = (
+            self.builder.config.sphinx_notion_code_block_character_limit
+        )
+        code_text = node.astext()
+        if len(code_text) > character_limit:
+            logger.info(
+                "Code block exceeds character limit (%d > %d)",
+                len(code_text),
+                character_limit,
+            )
+
+        for chunk in chunk_code(code_text, character_limit):
             self._json.append(
                 {
                     "object": "block",
