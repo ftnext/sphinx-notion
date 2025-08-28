@@ -14,8 +14,13 @@ author = 'nikkie'
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
 extensions = [
+    "myst_parser",
     'sphinx_notion',
 ]
+myst_enable_extensions = [
+    "linkify",
+]
+myst_linkify_fuzzy_links = False
 
 templates_path = ['_templates']
 exclude_patterns = []
