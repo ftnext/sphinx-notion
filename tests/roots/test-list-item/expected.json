@@ -71,7 +71,10 @@
                     "type": "text",
                     "text": {
                         "content": "リンク",
-                        "link": "http://example.com/"
+                        "link": {
+                            "type": "url",
+                            "url": "http://example.com/"
+                        }
                     }
                 },
                 {
