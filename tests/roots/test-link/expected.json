@@ -16,5 +16,23 @@
                 }
             ]
         }
+    },
+    {
+        "object": "block",
+        "type": "paragraph",
+        "paragraph": {
+            "rich_text": [
+                {
+                    "type": "text",
+                    "text": {
+                        "content": "リンク（ハイパーリンクターゲットを定義しない）",
+                        "link": {
+                            "type": "url",
+                            "url": "https://example.com/"
+                        }
+                    }
+                }
+            ]
+        }
     }
 ]
