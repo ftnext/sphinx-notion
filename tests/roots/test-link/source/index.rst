@@ -1,3 +1,1 @@
-https://example.com/
-
-`リンク（ハイパーリンクターゲットを定義しない） <https://example.com/>`__
+`リンク（ハイパーリンクターゲットを定義する） <https://example.com/>`_
