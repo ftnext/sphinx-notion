@@ -2,7 +2,7 @@ from sphinx.application import Sphinx
 
 from sphinx_notion.builders import NotionBuilder
 
-__version__ = "0.0.5"
+__version__ = "0.0.6"
 
 # https://developers.notion.com/reference/request-limits#size-limits
 NOTION_API_RICH_TEXT_CONTENT_CHARACTER_LIMIT = 2_000
