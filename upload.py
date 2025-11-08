@@ -1,5 +1,5 @@
 # /// script
-# requires-python = ">=3.11"
+# requires-python = ">=3.12"
 # dependencies = [
 #     "notion-client",
 # ]
@@ -8,9 +8,12 @@
 import argparse
 import json
 import os
+from itertools import batched
 from pathlib import Path
 
 from notion_client import Client
+
+CHILDLEN_LIMIT = 100
 
 notion = Client(auth=os.environ["NOTION_TOKEN"])  # integration secret
 
@@ -33,10 +36,22 @@ if __name__ == "__main__":
     with args.file.open("r", encoding="utf-8") as f:
         contents = json.load(f)
 
-    new_page = notion.pages.create(
-        parent={"type": "page_id", "page_id": args.parent_page_id},
-        properties={
-            "title": {"title": [{"text": {"content": args.title}}]},
-        },
-        children=contents,
-    )
+    if len(contents) <= CHILDLEN_LIMIT:
+        new_page = notion.pages.create(
+            parent={"type": "page_id", "page_id": args.parent_page_id},
+            properties={
+                "title": {"title": [{"text": {"content": args.title}}]},
+            },
+            children=contents,
+        )
+    else:
+        for i, chunk in enumerate(batched(contents, CHILDLEN_LIMIT), start=1):
+            _ = notion.pages.create(
+                parent={"type": "page_id", "page_id": args.parent_page_id},
+                properties={
+                    "title": {
+                        "title": [{"text": {"content": f"{args.title}-{i}"}}]
+                    },
+                },
+                children=chunk,
+            )
