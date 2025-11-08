@@ -94,6 +94,10 @@ class NotionTranslator(TextTranslator):
             # Ignore list_item's paragraph (Cause duplication)
             return
 
+        if isinstance(node.parent, nodes.note):
+            # Ignore note's paragraph (handled by visit_note)
+            return
+
         self._json.append(
             {
                 "object": "block",
@@ -157,3 +161,30 @@ class NotionTranslator(TextTranslator):
                     },
                 }
             )
+
+    def visit_note(self, node: nodes.Element) -> None:
+        super().visit_note(node)
+
+        content_parts = []
+        for child in node:
+            if isinstance(child, nodes.paragraph):
+                content_parts.append(child.astext())
+
+        content = "\n".join(content_parts)
+
+        self._json.append(
+            {
+                "object": "block",
+                "type": "callout",
+                "callout": {
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {"content": content},
+                        }
+                    ],
+                    "icon": {"type": "emoji", "emoji": "📝"},
+                    "color": "gray_background",
+                },
+            }
+        )
