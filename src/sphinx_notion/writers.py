@@ -170,9 +170,9 @@ class NotionTranslator(TextTranslator):
                 }
             )
 
-    def visit_note(self, node: nodes.Element) -> None:
-        super().visit_note(node)
-
+    def _create_callout_block(
+        self, node: nodes.Element, icon: str, color: str
+    ) -> None:
         content_parts = []
         for child in node:
             if isinstance(child, nodes.paragraph):
@@ -191,62 +191,20 @@ class NotionTranslator(TextTranslator):
                             "text": {"content": content},
                         }
                     ],
-                    "icon": {"type": "emoji", "emoji": "📝"},
-                    "color": "blue_background",
+                    "icon": {"type": "emoji", "emoji": icon},
+                    "color": color,
                 },
             }
         )
+
+    def visit_note(self, node: nodes.Element) -> None:
+        super().visit_note(node)
+        self._create_callout_block(node, "📝", "blue_background")
 
     def visit_tip(self, node: nodes.Element) -> None:
         super().visit_tip(node)
-
-        content_parts = []
-        for child in node:
-            if isinstance(child, nodes.paragraph):
-                content_parts.append(child.astext())
-
-        content = "\n".join(content_parts)
-
-        self._json.append(
-            {
-                "object": "block",
-                "type": "callout",
-                "callout": {
-                    "rich_text": [
-                        {
-                            "type": "text",
-                            "text": {"content": content},
-                        }
-                    ],
-                    "icon": {"type": "emoji", "emoji": "✨"},
-                    "color": "gray_background",
-                },
-            }
-        )
+        self._create_callout_block(node, "✨", "gray_background")
 
     def visit_hint(self, node: nodes.Element) -> None:
         super().visit_hint(node)
-
-        content_parts = []
-        for child in node:
-            if isinstance(child, nodes.paragraph):
-                content_parts.append(child.astext())
-
-        content = "\n".join(content_parts)
-
-        self._json.append(
-            {
-                "object": "block",
-                "type": "callout",
-                "callout": {
-                    "rich_text": [
-                        {
-                            "type": "text",
-                            "text": {"content": content},
-                        }
-                    ],
-                    "icon": {"type": "emoji", "emoji": "💡"},
-                    "color": "green_background",
-                },
-            }
-        )
+        self._create_callout_block(node, "💡", "green_background")
