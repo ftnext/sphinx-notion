@@ -36,5 +36,24 @@
             },
             "color": "gray_background"
         }
+    },
+    {
+        "object": "block",
+        "type": "callout",
+        "callout": {
+            "rich_text": [
+                {
+                    "type": "text",
+                    "text": {
+                        "content": "ヒント\nThis is a hint admonition."
+                    }
+                }
+            ],
+            "icon": {
+                "type": "emoji",
+                "emoji": "💡"
+            },
+            "color": "green_background"
+        }
     }
 ]

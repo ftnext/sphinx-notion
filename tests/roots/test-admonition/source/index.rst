@@ -6,3 +6,7 @@
 .. tip:: Tip
 
    This is a tip admonition.
+
+.. hint:: ヒント
+
+   This is a hint admonition.
