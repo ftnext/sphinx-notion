@@ -59,22 +59,14 @@ class NotionTranslator(TextTranslator):
                 "annotations": {"bold": True},
             }
         if isinstance(node, nodes.reference):
-            if "name" in node.attributes:
-                return {
-                    "type": "text",
-                    "text": {
-                        "content": node.attributes["name"],
-                        "link": {
-                            "type": "url",
-                            "url": node.attributes["refuri"],
-                        },
-                    },
-                }
             return {
                 "type": "text",
                 "text": {
-                    "content": node.attributes["refuri"],
-                    "link": {"type": "url", "url": node.attributes["refuri"]},
+                    "content": node.astext(),
+                    "link": {
+                        "type": "url",
+                        "url": node.attributes["refuri"],
+                    },
                 },
             }
         # node is Text
