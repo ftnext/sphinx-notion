@@ -124,6 +124,25 @@ class NotionTranslator(TextTranslator):
             for list_item in node
         )
 
+    def visit_enumerated_list(self, node: nodes.Element) -> None:
+        super().visit_enumerated_list(node)
+
+        self._json.extend(
+            {
+                "object": "block",
+                "type": "numbered_list_item",
+                "numbered_list_item": {
+                    "rich_text": self.convert_paragraph(
+                        cast(
+                            nodes.paragraph,
+                            cast(nodes.list_item, list_item)[0],
+                        )
+                    )
+                },
+            }
+            for list_item in node
+        )
+
     def visit_literal_block(self, node: nodes.Element) -> None:
         super().visit_literal_block(node)
 
