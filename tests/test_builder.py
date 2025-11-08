@@ -29,6 +29,7 @@ class TestNotionBuilder:
             "code",
             "codeblock-limit",
             "admonition",
+            "quote",
         ],
     )
     def test_convert(
