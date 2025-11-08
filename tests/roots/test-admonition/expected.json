@@ -15,6 +15,25 @@
                 "type": "emoji",
                 "emoji": "📝"
             },
+            "color": "blue_background"
+        }
+    },
+    {
+        "object": "block",
+        "type": "callout",
+        "callout": {
+            "rich_text": [
+                {
+                    "type": "text",
+                    "text": {
+                        "content": "Tip\nThis is a tip admonition."
+                    }
+                }
+            ],
+            "icon": {
+                "type": "emoji",
+                "emoji": "✨"
+            },
             "color": "gray_background"
         }
     }
