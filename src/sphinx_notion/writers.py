@@ -82,24 +82,15 @@ class NotionTranslator(TextTranslator):
     def visit_paragraph(self, node: nodes.Element) -> None:
         super().visit_paragraph(node)
 
-        if isinstance(node.parent, nodes.list_item):
-            # Ignore list_item's paragraph (Cause duplication)
-            return
+        ignored_parents = (
+            nodes.list_item,
+            nodes.note,
+            nodes.tip,
+            nodes.hint,
+            nodes.block_quote,
+        )
 
-        if isinstance(node.parent, nodes.note):
-            # Ignore note's paragraph (handled by visit_note)
-            return
-
-        if isinstance(node.parent, nodes.tip):
-            # Ignore tip's paragraph (handled by visit_tip)
-            return
-
-        if isinstance(node.parent, nodes.hint):
-            # Ignore hint's paragraph (handled by visit_hint)
-            return
-
-        if isinstance(node.parent, nodes.block_quote):
-            # Ignore block_quote's paragraph (handled by visit_block_quote)
+        if isinstance(node.parent, ignored_parents):
             return
 
         self._json.append(
