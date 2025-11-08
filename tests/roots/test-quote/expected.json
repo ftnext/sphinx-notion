@@ -40,5 +40,19 @@
                 }
             ]
         }
+    },
+    {
+        "object": "block",
+        "type": "quote",
+        "quote": {
+            "rich_text": [
+                {
+                    "type": "text",
+                    "text": {
+                        "content": "複数行も\nサポート"
+                    }
+                }
+            ]
+        }
     }
 ]
