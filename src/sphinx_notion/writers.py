@@ -98,6 +98,10 @@ class NotionTranslator(TextTranslator):
             # Ignore hint's paragraph (handled by visit_hint)
             return
 
+        if isinstance(node.parent, nodes.block_quote):
+            # Ignore block_quote's paragraph (handled by visit_block_quote)
+            return
+
         self._json.append(
             {
                 "object": "block",
@@ -200,3 +204,28 @@ class NotionTranslator(TextTranslator):
     def visit_hint(self, node: nodes.Element) -> None:
         super().visit_hint(node)
         self._create_callout_block(node, "💡", "green_background")
+
+    def visit_block_quote(self, node: nodes.Element) -> None:
+        super().visit_block_quote(node)
+
+        content_parts = []
+        for child in node:
+            if isinstance(child, nodes.paragraph):
+                content_parts.append(child.astext())
+
+        content = "\n".join(content_parts)
+
+        self._json.append(
+            {
+                "object": "block",
+                "type": "quote",
+                "quote": {
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {"content": content},
+                        }
+                    ],
+                },
+            }
+        )
