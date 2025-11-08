@@ -44,7 +44,9 @@ if __name__ == "__main__":
             },
             children=contents,
         )
-        print(f"Created {args.title}: https://notion.so/{new_page['id'].replace('-', '')}")
+        print(
+            f"Created {args.title}: https://notion.so/{new_page['id'].replace('-', '')}"
+        )
     else:
         for i, chunk in enumerate(batched(contents, CHILDLEN_LIMIT), start=1):
             new_page = notion.pages.create(
@@ -56,4 +58,6 @@ if __name__ == "__main__":
                 },
                 children=chunk,
             )
-            print(f"Created {args.title}-{i}: https://notion.so/{new_page['id'].replace('-', '')}")
+            print(
+                f"Created {args.title}-{i}: https://notion.so/{new_page['id'].replace('-', '')}"
+            )
