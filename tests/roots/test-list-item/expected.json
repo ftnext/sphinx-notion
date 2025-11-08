@@ -85,5 +85,47 @@
                 }
             ]
         }
+    },
+    {
+        "object": "block",
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+            "rich_text": [
+                {
+                    "type": "text",
+                    "text": {
+                        "content": "番号付き"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "object": "block",
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+            "rich_text": [
+                {
+                    "type": "text",
+                    "text": {
+                        "content": "箇条書きも"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "object": "block",
+        "type": "numbered_list_item",
+        "numbered_list_item": {
+            "rich_text": [
+                {
+                    "type": "text",
+                    "text": {
+                        "content": "サポート"
+                    }
+                }
+            ]
+        }
     }
 ]
