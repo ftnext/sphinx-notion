@@ -1,0 +1,21 @@
+[
+    {
+        "object": "block",
+        "type": "callout",
+        "callout": {
+            "rich_text": [
+                {
+                    "type": "text",
+                    "text": {
+                        "content": "注釈\nThis is a note admonition.\nIt can contain multiple paragraphs."
+                    }
+                }
+            ],
+            "icon": {
+                "type": "emoji",
+                "emoji": "📝"
+            },
+            "color": "gray_background"
+        }
+    }
+]
