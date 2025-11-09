@@ -58,6 +58,12 @@ class NotionTranslator(TextTranslator):
                 "text": {"content": node.astext()},
                 "annotations": {"bold": True},
             }
+        if isinstance(node, nodes.emphasis):
+            return {
+                "type": "text",
+                "text": {"content": node.astext()},
+                "annotations": {"italic": True},
+            }
         if isinstance(node, nodes.reference):
             return {
                 "type": "text",
