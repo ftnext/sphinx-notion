@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import json
-from typing import Any, cast
+from typing import TYPE_CHECKING, Any, cast
 
 from docutils import nodes
 from sphinx.builders.text import TextBuilder
@@ -13,6 +13,13 @@ from sphinx_notion.nodes.literal_block import (
     get_standard_pygments_language,
     to_notion_language,
 )
+
+if TYPE_CHECKING:
+    from sphinx_notion.types import (
+        NotionCode,
+        NotionCodeBlock,
+        NotionCodeWithCaption,
+    )
 
 logger = logging.getLogger(__name__)
 
@@ -157,6 +164,13 @@ class NotionTranslator(TextTranslator):
         )
         notion_language = to_notion_language(pygments_language)
 
+        caption: str | None = None
+        if isinstance(node.parent, nodes.container):
+            for child in node.parent:
+                if isinstance(child, nodes.caption):
+                    caption = child.astext()
+                    break
+
         character_limit = (
             self.builder.config.sphinx_notion_code_block_character_limit
         )
@@ -169,18 +183,30 @@ class NotionTranslator(TextTranslator):
             )
 
         for chunk in chunk_code(code_text, character_limit):
-            self._json.append(
-                {
-                    "object": "block",
-                    "type": "code",
-                    "code": {
-                        "rich_text": [
-                            {"type": "text", "text": {"content": chunk}}
-                        ],
-                        "language": notion_language,
-                    },
+            code: NotionCodeWithCaption | NotionCode
+            if caption:
+                code = {
+                    "rich_text": [
+                        {"type": "text", "text": {"content": chunk}}
+                    ],
+                    "language": notion_language,
+                    "caption": [
+                        {"type": "text", "text": {"content": caption}}
+                    ],
                 }
-            )
+            else:
+                code = {
+                    "rich_text": [
+                        {"type": "text", "text": {"content": chunk}}
+                    ],
+                    "language": notion_language,
+                }
+            code_block: NotionCodeBlock = {
+                "object": "block",
+                "type": "code",
+                "code": code,
+            }
+            self._json.append(code_block)
 
     def _create_callout_block(
         self, node: nodes.Element, icon: str, color: str
