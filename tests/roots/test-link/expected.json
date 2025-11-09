@@ -7,6 +7,24 @@
                 {
                     "type": "text",
                     "text": {
+                        "content": "https://example.com/",
+                        "link": {
+                            "type": "url",
+                            "url": "https://example.com/"
+                        }
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "object": "block",
+        "type": "paragraph",
+        "paragraph": {
+            "rich_text": [
+                {
+                    "type": "text",
+                    "text": {
                         "content": "私の担当 "
                     }
                 },
@@ -18,6 +36,66 @@
                             "type": "url",
                             "url": "https://millionlive-theaterdays.idolmaster-official.jp/idol/emily/"
                         }
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "object": "block",
+        "type": "paragraph",
+        "paragraph": {
+            "rich_text": [
+                {
+                    "type": "text",
+                    "text": {
+                        "content": "私の担当の"
+                    }
+                },
+                {
+                    "type": "text",
+                    "text": {
+                        "content": "エミリーちゃん",
+                        "link": {
+                            "type": "url",
+                            "url": "https://millionlive-theaterdays.idolmaster-official.jp/idol/emily/"
+                        }
+                    }
+                },
+                {
+                    "type": "text",
+                    "text": {
+                        "content": "はかわいい"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "object": "block",
+        "type": "bulleted_list_item",
+        "bulleted_list_item": {
+            "rich_text": [
+                {
+                    "type": "text",
+                    "text": {
+                        "content": "箇条書きの"
+                    }
+                },
+                {
+                    "type": "text",
+                    "text": {
+                        "content": "リンク",
+                        "link": {
+                            "type": "url",
+                            "url": "http://example.com/"
+                        }
+                    }
+                },
+                {
+                    "type": "text",
+                    "text": {
+                        "content": "対応"
                     }
                 }
             ]

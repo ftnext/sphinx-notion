@@ -42,53 +42,5 @@
                 }
             ]
         }
-    },
-    {
-        "object": "block",
-        "type": "paragraph",
-        "paragraph": {
-            "rich_text": [
-                {
-                    "type": "text",
-                    "text": {
-                        "content": "私の担当の"
-                    }
-                },
-                {
-                    "type": "text",
-                    "text": {
-                        "content": "エミリーちゃん",
-                        "link": {
-                            "type": "url",
-                            "url": "https://millionlive-theaterdays.idolmaster-official.jp/idol/emily/"
-                        }
-                    }
-                },
-                {
-                    "type": "text",
-                    "text": {
-                        "content": "はかわいい"
-                    }
-                }
-            ]
-        }
-    },
-    {
-        "object": "block",
-        "type": "paragraph",
-        "paragraph": {
-            "rich_text": [
-                {
-                    "type": "text",
-                    "text": {
-                        "content": "https://example.com/",
-                        "link": {
-                            "type": "url",
-                            "url": "https://example.com/"
-                        }
-                    }
-                }
-            ]
-        }
     }
 ]

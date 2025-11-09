@@ -58,36 +58,6 @@
     },
     {
         "object": "block",
-        "type": "bulleted_list_item",
-        "bulleted_list_item": {
-            "rich_text": [
-                {
-                    "type": "text",
-                    "text": {
-                        "content": "また"
-                    }
-                },
-                {
-                    "type": "text",
-                    "text": {
-                        "content": "リンク",
-                        "link": {
-                            "type": "url",
-                            "url": "http://example.com/"
-                        }
-                    }
-                },
-                {
-                    "type": "text",
-                    "text": {
-                        "content": "にも対応"
-                    }
-                }
-            ]
-        }
-    },
-    {
-        "object": "block",
         "type": "numbered_list_item",
         "numbered_list_item": {
             "rich_text": [
