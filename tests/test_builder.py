@@ -31,6 +31,7 @@ class TestNotionBuilder:
             "admonition",
             "quote",
             "literalinclude",
+            "link",
         ],
     )
     def test_convert(

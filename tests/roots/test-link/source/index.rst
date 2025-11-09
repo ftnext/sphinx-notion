@@ -1,1 +1,1 @@
-`リンク（ハイパーリンクターゲットを定義する） <https://example.com/>`_
+私の担当 https://millionlive-theaterdays.idolmaster-official.jp/idol/emily/

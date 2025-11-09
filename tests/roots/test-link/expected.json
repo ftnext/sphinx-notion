@@ -7,10 +7,16 @@
                 {
                     "type": "text",
                     "text": {
-                        "content": "リンク（ハイパーリンクターゲットを定義する）",
+                        "content": "私の担当 "
+                    }
+                },
+                {
+                    "type": "text",
+                    "text": {
+                        "content": "https://millionlive-theaterdays.idolmaster-official.jp/idol/emily/",
                         "link": {
                             "type": "url",
-                            "url": "https://example.com/"
+                            "url": "https://millionlive-theaterdays.idolmaster-official.jp/idol/emily/"
                         }
                     }
                 }

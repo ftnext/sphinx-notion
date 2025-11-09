@@ -90,7 +90,26 @@ class NotionTranslator(TextTranslator):
 
     @staticmethod
     def convert_paragraph(node: nodes.paragraph):
-        return [NotionTranslator.convert_inline_elements(n) for n in node]
+        paragraph: list[dict[str, Any]] = []
+        for child in node:
+            element = NotionTranslator.convert_inline_elements(child)
+            if len(paragraph) > 0:
+                if (
+                    "link" in element["text"]
+                    and element["text"]["link"]["url"]
+                    == element["text"]["content"]
+                ):
+                    paragraph[-1]["text"]["content"] += " "
+                elif (
+                    "link" in paragraph[-1]["text"]
+                    and paragraph[-1]["text"]["link"]["url"]
+                    == paragraph[-1]["text"]["content"]
+                ):
+                    element["text"]["content"] = (
+                        " " + element["text"]["content"]
+                    )
+            paragraph.append(element)
+        return paragraph
 
     def visit_paragraph(self, node: nodes.Element) -> None:
         super().visit_paragraph(node)
