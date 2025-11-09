@@ -182,16 +182,28 @@ class NotionTranslator(TextTranslator):
                 character_limit,
             )
 
-        for chunk in chunk_code(code_text, character_limit):
+        chunks = list(chunk_code(code_text, character_limit))
+        chunk_count = len(chunks)
+        for i, chunk in enumerate(chunks, start=1):
             code: NotionCodeWithCaption | NotionCode
             if caption:
+                caption_text = (
+                    f"{caption} ({i}/{chunk_count})"
+                    if chunk_count > 1
+                    else caption
+                )
                 code = {
                     "rich_text": [
                         {"type": "text", "text": {"content": chunk}}
                     ],
                     "language": notion_language,
                     "caption": [
-                        {"type": "text", "text": {"content": caption}}
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": caption_text,
+                            },
+                        }
                     ],
                 }
             else:

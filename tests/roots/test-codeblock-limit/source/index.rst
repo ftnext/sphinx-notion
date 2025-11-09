@@ -1,4 +1,5 @@
 .. code-block:: python
+    :caption: script.py
 
     a = 1 + 2
     b = 3 - 4
