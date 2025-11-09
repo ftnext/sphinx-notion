@@ -1,0 +1,17 @@
+[
+    {
+        "object": "block",
+        "type": "code",
+        "code": {
+            "rich_text": [
+                {
+                    "type": "text",
+                    "text": {
+                        "content": "print(1 + 2)\nprint(\"Hello\")"
+                    }
+                }
+            ],
+            "language": "python"
+        }
+    }
+]

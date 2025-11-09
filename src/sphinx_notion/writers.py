@@ -174,7 +174,7 @@ class NotionTranslator(TextTranslator):
         character_limit = (
             self.builder.config.sphinx_notion_code_block_character_limit
         )
-        code_text = node.astext()
+        code_text = node.astext().rstrip()
         if len(code_text) > character_limit:
             logger.info(
                 "Code block exceeds character limit (%d > %d)",
